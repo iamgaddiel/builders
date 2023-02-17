@@ -3,12 +3,21 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import SettingsProvider from './contexts/SettingsContext';
+import AuthProvider from './contexts/AuthContext';
+import StorageProvider from './contexts/StorageContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <React.StrictMode>
-    <App />
+    <SettingsProvider>
+      <StorageProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </StorageProvider>
+    </SettingsProvider>
   </React.StrictMode>
 );
 

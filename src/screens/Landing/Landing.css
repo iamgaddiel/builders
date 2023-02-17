@@ -1,0 +1,13 @@
+.landing_image {
+    height: 65vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.landing_image img{
+    width: 100%;
+    height: auto;
+}

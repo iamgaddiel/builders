@@ -1,0 +1,7 @@
+.auth_section {
+    position: absolute; 
+    bottom: 0; 
+    width: 100%; 
+    background-color: var(--primary);
+    transition: 1.6s;
+}
