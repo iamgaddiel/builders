@@ -62,21 +62,20 @@ const Bid = () => {
 
 
         try {
-            const res: any = await createItem(BIDS_COLLECTION, formData)
-
-            if (res?.data.data.user) {
-                displayFormError('user', res?.data?.data?.user?.message);
-                return;
+            const { isCreated, error }: any = await createItem(BIDS_COLLECTION, formData)
+            
+            if (isCreated) {
+                setMessage("Bid submitted successfuly")
+                setLoading(false)
+                setShowAleart(true)
             }
-
-
-        } catch (err) {
+            
+            
+        } catch (err: any) {
+            displayFormError('user', err?.message,);
             console.log(err, '<------- }}')
         }
 
-        setMessage("Bid submitted successfuly")
-        setLoading(false)
-        setShowAleart(true)
     }
 
 
@@ -128,15 +127,15 @@ const Bid = () => {
                         </div>
 
                         <section>
-                                <IonListHeader className='text-muted'>
-                                    <IonIcon icon={informationCircleOutline} /> { }
-                                    Notice
-                                </IonListHeader>
+                            <IonListHeader className='text-muted'>
+                                <IonIcon icon={informationCircleOutline} /> { }
+                                Notice
+                            </IonListHeader>
 
-                                <ul className='text-muted'>
-                                    <li> Submit your terms and condition for this bid</li>
-                                    <li> Application documnets</li>
-                                </ul>
+                            <ul className='text-muted'>
+                                <li> Submit your terms and condition for this bid</li>
+                                <li> Application documnets</li>
+                            </ul>
                         </section>
 
                         {

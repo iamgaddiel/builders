@@ -12,7 +12,10 @@ import { ProjectList, ProjectType } from '../../@types/projects'
 import { listCollection } from '../../helpers/sdks'
 import { PROJECTS_COLLECTION } from '../../helpers/keys'
 import NotFound from '../../components/NotFound'
-import { location, walletOutline } from 'ionicons/icons'
+import { location, timeOutline, walletOutline } from 'ionicons/icons'
+
+import moment from "moment"
+
 
 const Dashboard = () => {
 
@@ -104,6 +107,12 @@ const Dashboard = () => {
                               <IonLabel>
                                 <IonText>Professional Needed</IonText>
                                 <p>{project.professionals_needed} </p>
+                              </IonLabel>
+                            </IonItem>
+                            <IonItem>
+                              <IonLabel>
+                              <IonText><IonIcon icon={timeOutline} /> Posted</IonText>
+                                <p>{moment(project.created).fromNow()} </p>
                               </IonLabel>
                             </IonItem>
                           </IonList>

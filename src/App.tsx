@@ -9,7 +9,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { book, chatbubbles, home, person, walletOutline } from 'ionicons/icons';
+import { book, chatbubbles, home, homeOutline, person, personOutline, walletOutline } from 'ionicons/icons';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -113,13 +113,13 @@ const App: React.FC = () => {
 
               <IonTabBar slot='bottom'>
                 <IonTabButton tab="tab1" href="/dashboard">
-                  <IonIcon icon={home} />
+                  <IonIcon icon={homeOutline} />
                 </IonTabButton>
                 <IonTabButton tab="tab2" href="/bids">
                   <IonIcon icon={walletOutline} />
                 </IonTabButton>
                 <IonTabButton tab="tab4" href="/me">
-                  <IonIcon icon={person} />
+                  <IonIcon icon={personOutline} />
                 </IonTabButton>
               </IonTabBar>
             </IonTabs>

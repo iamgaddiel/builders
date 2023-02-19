@@ -81,7 +81,7 @@ export async function createItem(collection: string, data: {}) {
     }
     catch (error: any) {
         if (error) throw new Error(error)
-        return { isCreated: false }
+        return { isCreated: false, error }
     }
 }
 

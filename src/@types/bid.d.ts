@@ -9,6 +9,7 @@ export type BidType = {
     profession: string
     application_doc: string
     approved: boolean
+    expand?: {}
 }
 
 
@@ -22,7 +23,17 @@ export type BidList = {
 
 
 export type BidFilterd = {
-    
+    application_doc: string
+    approved: string
+    collectionId: string
+    collectionName: string
+    created: string
+    expand: {}
+    id: string
+    profession: string
+    project: "j4iqtofimg8bgn5"
+    updated: string
+    user: string
 }
 
 
