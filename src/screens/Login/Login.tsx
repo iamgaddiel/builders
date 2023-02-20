@@ -228,13 +228,13 @@ const Login = () => {
                     </div>
                     {errors.registrationInputs?.firstname && <li className='text-danger'>This field is required</li>}
                   </div>
-                  <div className='ion-margin-vertical'>
+                 {/*  <div className='ion-margin-vertical'>
                     <div className='d-flex align-items-center mt-2'>
                       <IonInput type="text" className="border rounded-5 ion-margin-end" placeholder='Enter last name' {...register('registrationInputs.lastname')} />
                       <IonIcon icon={personOutline} size="large" />
                     </div>
                     {errors.registrationInputs?.lastname && <li className='text-danger'>This field is required</li>}
-                  </div>
+                  </div> */}
                   <div className='ion-margin-vertical'>
                     <div className='d-flex align-items-center mt-2'>
                       <IonInput type="email" className="border rounded-5 ion-margin-end" placeholder='Enter Email' {...register('registrationInputs.email')} />
@@ -244,7 +244,7 @@ const Login = () => {
                   </div>
                   <div className='ion-margin-vertical'>
                     <div className='d-flex align-items-center mt-2'>
-                      <IonInput type="text" className="border rounded-5 ion-margin-end" placeholder='Enter Phone numbeer' {...register('registrationInputs.phone')} />
+                      <IonInput type="text" className="border rounded-5 ion-margin-end" placeholder='Enter Phone number' {...register('registrationInputs.phone')} />
                       <IonIcon icon={phonePortraitOutline} size="large" />
                     </div>
                     {errors.registrationInputs?.phone && <li className='text-danger'>This field is required</li>}
