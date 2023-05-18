@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonIcon, IonItem, IonLabel, IonList, IonPage, IonText } from '@ionic/react'
+import { IonAvatar, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonIcon, IonItem, IonLabel, IonList, IonPage, IonText } from '@ionic/react'
 import { logOut } from 'ionicons/icons'
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
@@ -42,6 +42,11 @@ const Me = () => {
         <IonPage>
             <HeaderTitle title='Me' />
             <IonContent className='ion-padding'>
+                <IonAvatar>
+
+                </IonAvatar>
+
+                
                 <IonCard>
                     <IonCardHeader>
                         <IonList lines='none'>

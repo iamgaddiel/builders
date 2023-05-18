@@ -10,9 +10,10 @@ import PocketBase from 'pocketbase'
  */
 const appName = "Builders"
 
-const DEBUG = true
+const DEBUG = false
 
-const pocketbaseUrl = DEBUG ? "http://127.0.0.1:8090" : "https://"
+const pocketbaseUrl = DEBUG ? "http://127.0.0.1:8090" : "https://builders.pockethost.io/"
+console.log("🚀 ~ file: settings.ts:16 ~ pocketbaseUrl:", pocketbaseUrl)
 
 const pb = new PocketBase(pocketbaseUrl)
 

@@ -10,17 +10,19 @@ import { SettingsContextType, SettingsContext } from '../../contexts/SettingsCon
 import SpaceBetween from '../../components/style/SpaceBetween'
 import { ProjectList, ProjectType } from '../../@types/projects'
 import { listCollection } from '../../helpers/sdks'
-import { PROJECTS_COLLECTION } from '../../helpers/keys'
+import { PROJECTS_COLLECTION, USER } from '../../helpers/keys'
 import NotFound from '../../components/NotFound'
 import { location, timeOutline, walletOutline } from 'ionicons/icons'
 
 import moment from "moment"
+import { StorageContext, StorageContextType } from '../../contexts/StorageContext'
 
 
 const Dashboard = () => {
 
   const { setshowTabs } = useContext(SettingsContext) as SettingsContextType
   const { getStoredUser } = useContext(AuthContext) as AuthContextType
+  const { getSaveData } = useContext(StorageContext) as StorageContextType
   const [user, setUser] = useState<UserCollectionType | null>(null)
   const [projectList, setProjectList] = useState<ProjectType[]>([])
 
@@ -37,7 +39,8 @@ const Dashboard = () => {
 
 
   async function getUser() {
-    const res: StoredUser = await getStoredUser()
+    const res: StoredUser = await getSaveData(USER)
+    console.log("🚀 ~ file: Dashboard.tsx:41 ~ getUser ~ res:", res)
     if (res !== null) setUser(res.record)
   }
 
@@ -111,7 +114,7 @@ const Dashboard = () => {
                             </IonItem>
                             <IonItem>
                               <IonLabel>
-                              <IonText><IonIcon icon={timeOutline} /> Posted</IonText>
+                                <IonText><IonIcon icon={timeOutline} /> Posted</IonText>
                                 <p>{moment(project.created).fromNow()} </p>
                               </IonLabel>
                             </IonItem>

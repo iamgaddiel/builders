@@ -1,0 +1,1 @@
+export const _stored_user_memory = ""

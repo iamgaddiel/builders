@@ -1,6 +1,6 @@
 import { IonButton, IonContent, IonInput, IonPage, IonSegment, IonSegmentButton, IonLabel, IonIcon, IonSelect, IonSelectOption, IonToast, IonAlert } from '@ionic/react'
-import { hammer, hammerOutline, lockClosed, lockClosedOutline, mailOpen, mailOpenOutline, mailOutline, person, personOutline, phonePortraitOutline } from 'ionicons/icons';
-import React, { useContext, useState } from 'react'
+import { hammer, hammerOutline, lockClosed, lockClosedOutline, logInOutline, mailOpen, mailOpenOutline, mailOutline, person, personOutline, phonePortraitOutline } from 'ionicons/icons';
+import React, { useContext, useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useHistory } from 'react-router';
 
@@ -32,6 +32,8 @@ const Login = () => {
   const history = useHistory()
   const { saveData } = useContext(StorageContext) as StorageContextType
 
+  let [colors, setColors] = useState("green")
+  let [colorCounter, setColorCounter] = useState(0)
 
 
 
@@ -42,11 +44,9 @@ const Login = () => {
     setLoading(true)
     try {
       const res: any = await authenticate(loginInputs.email, loginInputs.password)
-      console.log("🚀 ~ file: Login.tsx:35 ~ constonSubmit:SubmitHandler<Inputs>= ~ res", res)
-
 
       if (!pb.authStore.isValid) {
-        displayFormError(res.data.message)
+        displayFormError(res.message)
         return
       }
 
@@ -64,36 +64,86 @@ const Login = () => {
   const handdleRegistrationSubmit: SubmitHandler<AuthInputs> = async ({ registrationInputs }) => {
     setLoading(true)
 
-    const name = `${registrationInputs.firstname} ${registrationInputs.lastname}`
+    let _colors = ["black", "pink", "orange", "purple", "green"]
+    if (colorCounter === _colors.length) {
+      setColorCounter(0)
+    }
+    setColors(_colors[colorCounter])
+    setColorCounter(colorCounter += 1)
+
+
+
+    const name = `${registrationInputs.name}`
     const formData = {
       ...registrationInputs,
       name
     }
 
     try {
-      const res: any = await createUser(formData)
+      const user: any = await createUser(formData)
+      console.log("🚀 ~ file: Login.tsx:73 ~ consthanddleRegistrationSubmit:SubmitHandler<AuthInputs>= ~ user:", user)
 
-      if (res?.data.data.name) {
-        displayFormError('name', res?.data?.data?.name?.message);
-        return;
-      }
-      if (res?.data.code === 400 && res?.data.data.email) {
-        displayFormError('email', res.data.data.email.message);
-        return;
-      }
-      if (res?.data.data.skill) {
-        displayFormError('skill', res.data.data.skill.message);
-        return;
-      }
-      if (res?.data.data.password) {
-        displayFormError('password', res.data.data.password.message);
-        return;
-      }
-      if (res?.data.data.passwordConfirm) {
-        displayFormError('Confirm Password', res.data.data.passwordConfirm.message);
-        return;
-      }
 
+      // switch(user){
+      //   case "400 | 404 | 500":
+      //   case user?.data.
+      // }
+      // {
+      //   "code": 400,
+      //     "message": "Failed to create record.",
+      //     "data": {
+      //       "phone": {
+      //         "code": "validation_min_text_constraint",
+      //         "message": "Must be at least 9 character(s)."
+      //     }
+      //   }
+      // }
+
+
+      if (user?.status !== (200 | 201) && user?.message === "Failed to create record.") {
+        // let _errors = {
+        //   name: user?.data?.data?.name,
+        //   email: user?.data?.data?.email,
+        //   phone: user?.data?.data?.phone,
+        //   password: user?.data?.data?.password,
+        //   passwordConfirm: user?.data?.data?.passwordConfirm,
+        //   code: user?.status,
+        //   response: user
+        // }
+        // console.log("🚀 ~ file: Login.tsx:113 ~ consthanddleRegistrationSubmit:SubmitHandler<AuthInputs>= ~ _errors:", _errors)
+
+        // check if error is not undefined
+        if (!!user?.data?.data?.name) {
+          setMessage(`${'Name'}: ${user?.data?.data?.name?.message}`)
+          setLoading(false)
+          return;
+        }
+        if (!!user?.data?.data?.email) {
+          displayFormError(`${'Email'}`, user?.data?.data?.email?.message)
+          setLoading(false)
+          return;
+        }
+        if (!!user?.data?.data?.phone) {
+          displayFormError(`${'Phone'}`, user?.data?.data?.phone?.message)
+          setLoading(false)
+          return;
+        }
+        if (!!user?.data?.data?.skill) {
+          displayFormError(`${'Skill'}`, user?.data?.data?.skill?.message)
+          setLoading(false)
+          return;
+        }
+        if (!!user?.data?.data?.password) {
+          displayFormError(`${'Password'}`, user?.data?.data?.password?.message)
+          setLoading(false)
+          return;
+        }
+        if (!!user?.data?.data?.passwordConfirm) {
+          displayFormError(`${'passwordConfirm'}`, user?.data?.data?.passwordConfirm?.message)
+          setLoading(false)
+          return;
+        }
+      }
     } catch (err) {
       console.log(err, '<------- }}')
     }
@@ -101,6 +151,7 @@ const Login = () => {
     setMessage("Kindly login to continue")
     setLoading(false)
     setShowAleart(true)
+
   }
 
 
@@ -135,7 +186,7 @@ const Login = () => {
         <IonToast
           position='top'
           color={"danger"}
-          duration={2500}
+          duration={5000}
           onDidDismiss={() => setShowToast(false)}
           message={message}
           isOpen={showToast}
@@ -162,7 +213,7 @@ const Login = () => {
               <form onSubmit={handleSubmit(handdleLoginSubmit)}>
 
                 <section className="ion-text-center mt-3">
-                  <h5>Welcome back!</h5>
+                  <h5>Welcome back</h5>
                   <p className="text-muted">We're so excited to see you again!</p>
                 </section>
 
@@ -223,12 +274,12 @@ const Login = () => {
 
                   <div className='ion-margin-vertical'>
                     <div className='d-flex align-items-center mt-2'>
-                      <IonInput type="text" className="border rounded-5 ion-margin-end" placeholder='Enter first name' {...register("registrationInputs.firstname")} />
+                      <IonInput type="text" className="border rounded-5 ion-margin-end" placeholder='Enter first name' {...register("registrationInputs.name")} />
                       <IonIcon icon={personOutline} size="large" />
                     </div>
-                    {errors.registrationInputs?.firstname && <li className='text-danger'>This field is required</li>}
+                    {errors.registrationInputs?.name && <li className='text-danger'>This field is required</li>}
                   </div>
-                 {/*  <div className='ion-margin-vertical'>
+                  {/*  <div className='ion-margin-vertical'>
                     <div className='d-flex align-items-center mt-2'>
                       <IonInput type="text" className="border rounded-5 ion-margin-end" placeholder='Enter last name' {...register('registrationInputs.lastname')} />
                       <IonIcon icon={personOutline} size="large" />
@@ -299,7 +350,9 @@ const Login = () => {
                         shape='round'
                         size='large'
                         type='submit'
-                      >Register
+                      >
+                        Register
+                        <IonIcon icon={logInOutline} style={{ color: `${colors}` }} />
                       </IonButton>
 
                     )
@@ -331,8 +384,7 @@ type LoginInputs = {
 };
 
 type ReigsterationInputs = {
-  firstname: string
-  lastname: string
+  name: string
   email: string
   skill: string
   phone: string
